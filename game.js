@@ -1,7 +1,7 @@
 let config = {
     type: Phaser.AUTO,
-    width: 500,
-    height: 440, 
+    width: 874,
+    height: 703, 
     physics: {
         default: 'arcade',
         arcade: {
@@ -16,9 +16,11 @@ let config = {
     }
 }
 
+
 const game = new Phaser.Game(config)
 let cursors;
 let mysprite;
+
 
 function preload() {
     // game.load.onLoadStart.add(loadStart, this);
@@ -49,14 +51,18 @@ function create() {
     // game.physics.startSystem(Phaser.Physics.ARCADE);
     let bg = this.add.image(0, 0, 'treebackground');
     bg.setOrigin(0, 0);
-    bg.setScale(3.5);
+    bg.setScale(5.5);
+  
     
     let grounds = this.physics.add.staticGroup();
 
-    grounds.create(0, 400, 'ground').setScale(3).setOrigin(0,0).refreshBody();
-    grounds.create(131, 400, 'ground').setScale(3).setOrigin(0, 0).refreshBody();
-    grounds.create(262, 400, 'ground').setScale(3).setOrigin(0, 0).refreshBody();
-    grounds.create(393, 400, 'ground').setScale(3).setOrigin(0, 0).refreshBody();
+    grounds.create(0, 644, 'ground').setScale(4).setOrigin(0,0).refreshBody();
+    grounds.create(176, 644, 'ground').setScale(4).setOrigin(0, 0).refreshBody();
+    grounds.create(342, 644, 'ground').setScale(4).setOrigin(0, 0).refreshBody();
+    grounds.create(518, 644, 'ground').setScale(4).setOrigin(0, 0).refreshBody();
+    grounds.create(694, 644, 'ground').setScale(4).setOrigin(0, 0).refreshBody();
+    grounds.create(700, 644, 'ground').setScale(4).setOrigin(0, 0).refreshBody();
+
 
     // let ground = this.add.image(0, 400, 'ground');
     // ground.setOrigin(0,0);
@@ -78,40 +84,43 @@ function create() {
     // column1.setOrigin(0,0);
     // column1.setScale(1.8);
 
-    let tree1 = this.add.image(108, 290, 'tree');
+    let tree1 = this.add.image(108, 490, 'tree');
     tree1.setOrigin(0, 0);
-    tree1.setScale(2.5);
+    tree1.setScale(3.5);
 
-    let greyBlock1 = this.add.image(55, 160, 'grey_block');
-    greyBlock1.setScale(2.3);
+    let greyBlock1 = this.add.image(120, 180, 'grey_block');
+    greyBlock1.setScale(3);
 
-    let greyBlock2 = this.add.image(90, 160, 'grey_block');
-    greyBlock2.setScale(2.3);
+    let greyBlock2 = this.add.image(166, 180, 'grey_block');
+    greyBlock2.setScale(3);
 
-    let groundBlock1 = this.add.image(260, 387, 'ground_block');
-    groundBlock1.setScale(2);
+    let greyBlock3 = this.add.image(212, 180, 'grey_block');
+    greyBlock3.setScale(3);
 
-    let bigBlock1 = this.add.image(370, 352, 'bigblock');
-    bigBlock1.setScale(2);
+    let groundBlock1 = this.add.image(313, 625, 'ground_block');
+    groundBlock1.setScale(2.8);
 
-    let redBigSquare1 = this.add.image(220, 240, 'redbig');
-    redBigSquare1.setScale(1.8);
+    let bigBlock1 = this.add.image(450, 578, 'bigblock');
+    bigBlock1.setScale(2.8);
 
-    let redSmallSquare1 = this.add.image(193, 233, 'redsmall');
-    redSmallSquare1.setScale(1.8);
+    let redBigSquare1 = this.add.image(650, 420, 'redbig');
+    redBigSquare1.setScale(2.3);
 
-    let redSmallSquare2 = this.add.image(248, 233, 'redsmall');
-    redSmallSquare2.setScale(1.8);
+    let redSmallSquare1 = this.add.image(614, 411, 'redsmall');
+    redSmallSquare1.setScale(2.3);
+
+    let redSmallSquare2 = this.add.image(686, 411, 'redsmall');
+    redSmallSquare2.setScale(2.3);
 
     mysprite = this.physics.add.sprite(50, 380, 'character');
-    mysprite.setScale(2);
-    // mysprite.setBounce(0.2);
+    mysprite.setScale(2.4);
+    // mysprite.setBounce(0.5);
     mysprite.setCollideWorldBounds(true);
 
     this.anims.create({
         key: 'left',
         frames: this.anims.generateFrameNumbers('character', { start: 0, end: 2 }),
-        frameRate: 23,
+        frameRate: 50,
         repeat: -1
     });
 
@@ -128,7 +137,7 @@ function create() {
         frameRate: 50
     })
 
-    mysprite.body.setGravityY(200);
+    mysprite.body.setGravityY(10);
 
     // this.physics.add.collider(mysprite, grounds); --- fix this
 
@@ -148,59 +157,59 @@ function create() {
     // });
     // coins.play('spin');
     
-    let coin1 = this.add.sprite(260, 358, 'coin');
-    coin1.setScale(1.2);
+    let coin1 = this.add.sprite(170, 470, 'coin');
+    coin1.setScale(1.8);
     this.anims.create({
         key: 'spin',
         repeat: -1,
-        frameRate: 6,
+        frameRate: 8,
         frames: this.anims.generateFrameNames('coin', {start: 0, end: 3})
     });
     coin1.play('spin');
 
-    let coin2 = this.add.sprite(350, 290, 'coin');
-    coin2.setScale(1.2);
+    let coin2 = this.add.sprite(314, 585, 'coin');
+    coin2.setScale(1.8);
     this.anims.create({
         key: 'spin',
         repeat: -1,
-        frameRate: 6,
+        frameRate: 8,
         frames: this.anims.generateFrameNames('coin', { start: 0, end: 3 })
     });
     coin2.play('spin');
 
-    let coin3 = this.add.sprite(390, 290, 'coin');
-    coin3.setScale(1.2);
+    let coin3 = this.add.sprite(406, 493, 'coin');
+    coin3.setScale(1.8);
     this.anims.create({
         key: 'spin',
         repeat: -1,
-        frameRate: 6,
+        frameRate: 8,
         frames: this.anims.generateFrameNames('coin', { start: 0, end: 3 })
     });
     coin3.play('spin');
 
-    let coin4 = this.add.sprite(203, 213, 'coin');
-    coin4.setScale(1.2);
+    let coin4 = this.add.sprite(450, 493, 'coin');
+    coin4.setScale(1.8);
     this.anims.create({
         key: 'spin',
         repeat: -1,
-        frameRate: 6,
+        frameRate: 8,
         frames: this.anims.generateFrameNames('coin', { start: 0, end: 3 })
     });
     coin4.play('spin');
 
-    let coin5 = this.add.sprite(237, 213, 'coin');
-    coin5.setScale(1.2);
+    let coin5 = this.add.sprite(493, 493, 'coin');
+    coin5.setScale(1.8);
     this.anims.create({
         key: 'spin',
         repeat: -1,
-        frameRate: 6,
+        frameRate: 8,
         frames: this.anims.generateFrameNames('coin', { start: 0, end: 3 })
     });
     coin5.play('spin');
   
 
-    let coin6 = this.add.sprite(58, 131, 'coin');
-    coin6.setScale(1.2);
+    let coin6 = this.add.sprite(676, 385, 'coin');
+    coin6.setScale(1.8);
     this.anims.create({
         key: 'spin',
         repeat: -1,
@@ -210,8 +219,8 @@ function create() {
     coin6.play('spin');
 
 
-    let coin7 = this.add.sprite(90, 131, 'coin');
-    coin7.setScale(1.2);
+    let coin7 = this.add.sprite(624, 385, 'coin');
+    coin7.setScale(1.8);
     this.anims.create({
         key: 'spin',
         repeat: -1,
