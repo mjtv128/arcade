@@ -20,6 +20,8 @@ let config = {
 const game = new Phaser.Game(config)
 let cursors;
 let mysprite;
+let grounds;
+let groundBlock1;
 
 
 function preload() {
@@ -54,63 +56,56 @@ function create() {
     bg.setScale(5.5);
   
     
-    let grounds = this.physics.add.staticGroup();
+    static = this.physics.add.staticGroup();
 
-    grounds.create(0, 644, 'ground').setScale(4).setOrigin(0,0).refreshBody();
-    grounds.create(176, 644, 'ground').setScale(4).setOrigin(0, 0).refreshBody();
-    grounds.create(342, 644, 'ground').setScale(4).setOrigin(0, 0).refreshBody();
-    grounds.create(518, 644, 'ground').setScale(4).setOrigin(0, 0).refreshBody();
-    grounds.create(694, 644, 'ground').setScale(4).setOrigin(0, 0).refreshBody();
-    grounds.create(700, 644, 'ground').setScale(4).setOrigin(0, 0).refreshBody();
+    static.create(0, 644, 'ground').setScale(4).setOrigin(0,0).refreshBody();
+    static.create(176, 644, 'ground').setScale(4).setOrigin(0, 0).refreshBody();
+    static.create(342, 644, 'ground').setScale(4).setOrigin(0, 0).refreshBody();
+    static.create(518, 644, 'ground').setScale(4).setOrigin(0, 0).refreshBody();
+    static.create(694, 644, 'ground').setScale(4).setOrigin(0, 0).refreshBody();
+    static.create(700, 644, 'ground').setScale(4).setOrigin(0, 0).refreshBody();
 
-
-    // let ground = this.add.image(0, 400, 'ground');
-    // ground.setOrigin(0,0);
-    // ground.setScale(3);
-
-    // let ground2 = this.add.image(131, 400, 'ground');
-    // ground2.setOrigin(0,0);
-    // ground2.setScale(3);
-
-    // let ground3 = this.add.image(262, 400, 'ground');
-    // ground3.setOrigin(0, 0);
-    // ground3.setScale(3);
-
-    // let ground4 = this.add.image(393, 400, 'ground');
-    // ground4.setOrigin(0, 0);
-    // ground4.setScale(3);
-
-    // let column1 = this.add.image(340, 301, 'column');
-    // column1.setOrigin(0,0);
-    // column1.setScale(1.8);
+    static.create(313, 625, 'ground_block').setScale(2.8);
+    static.create(166, 180, 'grey_block').setScale(3);
+    static.create(166, 180, 'grey_block').setScale(3);
+    static.create(212, 180, 'grey_block').setScale(3);
+    static.create(313, 625, 'ground_block').setScale(2.8);
+    static.create(450, 578, 'bigblock').setScale(2.8);
+    static.create(650, 420, 'redbig').setScale(2.3);
+    static.create(614, 411, 'redsmall').setScale(2.3);
+    static.create(686, 411, 'redsmall').setScale(2.3);
 
     let tree1 = this.add.image(108, 490, 'tree');
     tree1.setOrigin(0, 0);
     tree1.setScale(3.5);
 
-    let greyBlock1 = this.add.image(120, 180, 'grey_block');
-    greyBlock1.setScale(3);
+    // let greyBlock1 = this.add.image(120, 180, 'grey_block');
+    // greyBlock1.setScale(3);
 
-    let greyBlock2 = this.add.image(166, 180, 'grey_block');
-    greyBlock2.setScale(3);
+    // let greyBlock2 = this.add.image(166, 180, 'grey_block');
+    // greyBlock2.setScale(3);
 
-    let greyBlock3 = this.add.image(212, 180, 'grey_block');
-    greyBlock3.setScale(3);
+    // let greyBlock3 = this.add.image(212, 180, 'grey_block');
+    // greyBlock3.setScale(3);
 
-    let groundBlock1 = this.add.image(313, 625, 'ground_block');
-    groundBlock1.setScale(2.8);
+    // groundBlock1 = this.add.image(313, 625, 'ground_block');
+    // groundBlock1.setScale(2.8);
+    // groundBlock1.physics.add.staticBody();
+    // // groundBlock1.body.immovable = true;
+    // this.physics.add.collider(mysprite, groundBlock1); 
 
-    let bigBlock1 = this.add.image(450, 578, 'bigblock');
-    bigBlock1.setScale(2.8);
 
-    let redBigSquare1 = this.add.image(650, 420, 'redbig');
-    redBigSquare1.setScale(2.3);
+    // let bigBlock1 = this.add.image(450, 578, 'bigblock');
+    // bigBlock1.setScale(2.8);
 
-    let redSmallSquare1 = this.add.image(614, 411, 'redsmall');
-    redSmallSquare1.setScale(2.3);
+    // let redBigSquare1 = this.add.image(650, 420, 'redbig');
+    // redBigSquare1.setScale(2.3);
 
-    let redSmallSquare2 = this.add.image(686, 411, 'redsmall');
-    redSmallSquare2.setScale(2.3);
+    // let redSmallSquare1 = this.add.image(614, 411, 'redsmall');
+    // redSmallSquare1.setScale(2.3);
+
+    // let redSmallSquare2 = this.add.image(686, 411, 'redsmall');
+    // redSmallSquare2.setScale(2.3);
 
     mysprite = this.physics.add.sprite(50, 380, 'character');
     mysprite.setScale(2.4);
@@ -137,9 +132,9 @@ function create() {
         frameRate: 50
     })
 
-    mysprite.body.setGravityY(10);
+    mysprite.body.setGravityY(50);
 
-    // this.physics.add.collider(mysprite, grounds); --- fix this
+    this.physics.add.collider(mysprite, static); 
 
     cursors = this.input.keyboard.createCursorKeys();
 
@@ -228,6 +223,18 @@ function create() {
         frames: this.anims.generateFrameNames('coin', { start: 0, end: 3 })
     });
     coin7.play('spin');
+
+    // this.physics.add.overlap(mysprite, coin1, coinTouch, null, this);
+    // function coinTouch (mysprite, coin1){
+    //     coin1.disableBody(true, true);
+    // }
+
+    this.physics.add.collider(mysprite, coin1);
+    // this.physics.add.collider(mysprite, groundBlock1);
+    // // groundBlock1.setImmovable(true);
+    // this.physics.add.collider(mysprite, groundBlock1);
+    // this.physics.world.collide(mysprite, groundBlock1);
+
 }
 
 function update() {
@@ -247,6 +254,11 @@ function update() {
     if (spaceBar.isDown){
         mysprite.setVelocityY(-200);  
         }
+
+    // this.physics.arcade.enable(mysprite);
+    // mysprite.enableBody = true; 
+    // mysprite.body.immovable = true;
+    // this.game.physics.arcade.collide(mysprite, grounds)
 };
 
 
