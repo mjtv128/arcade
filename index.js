@@ -7,7 +7,7 @@ window.addEventListener('DOMContentLoaded', () => {
         const leaderboardDiv = document.querySelector('#leaderboard-side')
         const leaderboardUl = document.querySelector('#name-score')
         const submitForm = document.querySelector('#submit-form')
-        
+        let scoreInput = document.getElementById('score')
 
 
     // API CONSTANTS
@@ -61,7 +61,6 @@ window.addEventListener('DOMContentLoaded', () => {
             })
 
         function displayNewScore(e){
-
             p = document.createElement('li')
             p.innerText = `${e.target.elements[0].value} scored ${e.target.elements[1].value}`
             leaderboardUl.append(p)

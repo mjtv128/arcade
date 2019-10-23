@@ -327,14 +327,13 @@ function create() {
 
     function bluepoints(mysprite, blueobject){
         blueobject.disableBody(true, true);
-        score += 5;
-        scoreInput.value += 5;
+        score *= 2;
+        scoreInput.value*=2;
         scoreText.setText("score: " + score);  
         this.physics.pause();
         this.gameOver = true;  
         let gameOverText = this.add.text(300, 350, 'GAME OVER', { fontSize: '60px', fill: '#000' }) 
-        hidden.className = "unhidden";         
-
+        hidden.className = "unhidden";
     }
 
 }
