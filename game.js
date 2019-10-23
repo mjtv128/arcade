@@ -1,9 +1,13 @@
 
+const gameDiv = document.getElementById('game-div')
+let scoreInput = document.getElementById('score')
+scoreInput.value = 0
 
 let config = {
     type: Phaser.AUTO,
     width: 874,
-    height: 703, 
+    height: 703,
+    parent: gameDiv,
     physics: {
         default: 'arcade',
         arcade: {
@@ -18,11 +22,14 @@ let config = {
     }
 }
 
-
-new Phaser.Game(config)
+function initiate(config){
+    new Phaser.Game(config)
+}
+initiate(config)
 
 let cursors;
 let mysprite;
+let score = 0;
 
 function preload() {
 
@@ -298,7 +305,6 @@ function create() {
     blue1.body.allowGravity = false;
     this.physics.add.overlap(mysprite, blue1, bluepoints, null, this)
 
-    let score = 0;
     let scoreText;
 
     scoreText = this.add.text(630, 50, 'score: 0', {
@@ -309,12 +315,14 @@ function create() {
     function points(mysprite, object) {
         object.disableBody(true, true);
         ++score;
+        ++scoreInput.value;
         scoreText.setText("score: " + score);
     }
 
     function bluepoints(mysprite, blueobject){
         blueobject.disableBody(true, true);
         score += 5;
+        scoreInput.value += 5;
         scoreText.setText("score: " + score);                  
     }
             
@@ -326,7 +334,7 @@ function update() {
    
 
     if (cursors.left.isDown) {
-        mysprite.setVelocityX(-160);
+        mysprite.setVelocityX(-300);
         mysprite.anims.play('left', true);
     } else if (cursors.right.isDown){
         mysprite.setVelocityX(300);
@@ -341,7 +349,4 @@ function update() {
         mysprite.setVelocityY(-200);  
         } 
 
-
 };
-
-

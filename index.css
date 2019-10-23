@@ -1,22 +1,32 @@
+
 body {
 	background-image: url("https://wallpaperplay.com/walls/full/d/3/9/378493.jpg");
 }
 
-.leaderboard {
-	grid-column: 3;
-    text-indent: 40px
-}
-
 .container {
 	display: grid;
-	grid-template-columns: 1fr 7fr 3fr;
-	grid-template-rows;: 2fr 8fr;
-}
-
-.ul {
-	color: green;
+	grid-template-columns: 0.5fr 7fr 3fr;
+	/* grid-template-rows: 2fr 8fr; */
 }
 
 .game {
+	grid-row: 1;
 	grid-column: 2;
+}
+
+.leaderboard {
+	grid-row: 1;
+	grid-column: 3;
+    text-indent: 40px;
+}
+
+.ul {
+	color: purple;
+}
+
+.submit-form {
+	grid-row: 1;
+	grid-column: 3;
+	/* align-content: center;; */
+	color: green
 }
