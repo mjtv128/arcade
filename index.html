@@ -15,17 +15,30 @@
     </div>
 
     <div class='container'>
+        
+        <!-- make form hidden -->
+        <div class='submit-form'>
+            <form id="submit-form">
+                Please provide username: <br>
+                <input id='username' type="text" name='Username'></input><br>
+                <input hidden id='score' type="number"></input>
+                <button id='submit-button' type="submit">SUBMIT</button>
+            </form>
+        </div>
 
         
         <div id='leaderboard-side' class='leaderboard'>
+                <br><br><br><br><br>
             <h2>Leaderboard</h2>
-            <button id='button'>TEST</button>
             <ul id='name-score' class='ul'></ul>
         </div>
+
+        <div id='game-div' class='game'>
+        </div>
         
-        <p></p>
+    
         
-        <script class='game' type='text/javascript' src="index.js"> </script>
+        <script type='text/javascript' src="index.js"> </script>
         <script type='text/javascript' src="game.js"> </script>
     </div>
 </body>

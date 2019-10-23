@@ -1,3 +1,4 @@
+
 window.addEventListener('DOMContentLoaded', () => {
 
 
@@ -5,6 +6,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
         const leaderboardDiv = document.querySelector('#leaderboard-side')
         const leaderboardUl = document.querySelector('#name-score')
+        const submitForm = document.querySelector('#submit-form')
         
 
 
@@ -15,23 +17,25 @@ window.addEventListener('DOMContentLoaded', () => {
             "Content-Type": "application/json",
             Accept: "application/json"
         }
+
+
     // API FUNCTIONALITY
 
         function get(){
             return fetch(baseURL).then(resp => resp.json())
         }
 
-        function postNewScore(){
+        function postNewScore(e){
             return fetch(baseURL, {
                 method: "POST",
                 headers: headers,
                 body: JSON.stringify({
-                    // feed in information from event object
-                    player: "testPlayer",
-                    score: 300
+                    player: e.target.elements[0].value,
+                    score: e.target.elements[1].value
                 })
             })
         }
+
 
     // FUNCTIONALITY
 
@@ -50,21 +54,19 @@ window.addEventListener('DOMContentLoaded', () => {
             leaderboardUl.append(p)
         }
 
+        submitForm.addEventListener('submit', (e) => {
+            e.preventDefault()
+            postNewScore(e),
+            displayNewScore(e)
+            })
 
-            let button = document.getElementById('button')
-            // pass on e (including player name and score)
-            button.addEventListener('click', () => {
-                postNewScore(),
-                displayNewScore()
-                })
+        function displayNewScore(e){
 
-        function displayNewScore(){
             p = document.createElement('li')
-            // connect to input data! Adjust
-            p.innerText = 'testPlayer scored 300'
+            p.innerText = `${e.target.elements[0].value} scored ${e.target.elements[1].value}`
             leaderboardUl.append(p)
         }
 
-
         renderLeaderboard()
 })
+
