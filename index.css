@@ -30,3 +30,12 @@ body {
 	/* align-content: center;; */
 	color: green
 }
+
+.hidden {
+	display: none;
+	visibility: hidden;
+}
+
+.unhidden {
+	color: green;
+}
