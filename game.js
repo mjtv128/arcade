@@ -1,5 +1,6 @@
 
 const gameDiv = document.getElementById('game-div')
+let hidden = document.querySelector(".hidden");
 let scoreInput = document.getElementById('score')
 scoreInput.value = 0
 
@@ -30,6 +31,7 @@ initiate(config)
 let cursors;
 let mysprite;
 let score = 0;
+
 
 function preload() {
 
@@ -303,7 +305,9 @@ function create() {
     
     let blue1 = this.physics.add.sprite( 170, 141, 'blue').setScale(2.3);
     blue1.body.allowGravity = false;
-    this.physics.add.overlap(mysprite, blue1, bluepoints, null, this)
+    this.physics.add.overlap(mysprite, blue1, bluepoints, null, this);
+    
+    // this.gameOverText.visible = true;
 
     let scoreText;
 
@@ -319,14 +323,20 @@ function create() {
         scoreText.setText("score: " + score);
     }
 
+    
+
     function bluepoints(mysprite, blueobject){
         blueobject.disableBody(true, true);
         score += 5;
         scoreInput.value += 5;
-        scoreText.setText("score: " + score);                  
+        scoreText.setText("score: " + score);  
+        this.physics.pause();
+        this.gameOver = true;  
+        let gameOverText = this.add.text(300, 350, 'GAME OVER', { fontSize: '60px', fill: '#000' }) 
+        hidden.className = "unhidden";         
+
     }
-            
-    
+
 }
 
 function update() {
