@@ -23,11 +23,6 @@ const game = new Phaser.Game(config)
 
 let cursors;
 let mysprite;
-let grounds;
-let groundBlock1;
-let coin1;
-let coins;
-
 
 function preload() {
 
@@ -123,7 +118,7 @@ function create() {
 
     /////NEED TO REFACTOR////////
 
-    coin1 = this.physics.add.sprite(170, 470, 'coin');
+    let coin1 = this.physics.add.sprite(170, 470, 'coin');
     coin1.setScale(1.8);
     this.anims.create({
         key: 'spin',
@@ -133,12 +128,7 @@ function create() {
     });
     coin1.play('spin');
     coin1.body.allowGravity = false;
-    this.physics.add.overlap(mysprite, coin1, collectCoin, null, this);
-
-    function collectCoin(mysprite, coin1){
-        coin1.disableBody(true, true);
-    }
-    
+    this.physics.add.overlap(mysprite, coin1, points, null, this);
 
     let coin2 = this.physics.add.sprite(314, 585, 'coin');
     coin2.setScale(1.8);
@@ -150,11 +140,7 @@ function create() {
     });
     coin2.play('spin');
     coin2.body.allowGravity = false;
-    this.physics.add.overlap(mysprite, coin2, collectCoin, null, this);
-
-    function collectCoin(mysprite, coin2) {
-        coin2.disableBody(true, true);
-    }
+    this.physics.add.overlap(mysprite, coin2, points, null, this);
 
     let coin3 = this.physics.add.sprite(406, 493, 'coin');
     coin3.setScale(1.8);
@@ -166,11 +152,7 @@ function create() {
     });
     coin3.play('spin');
     coin3.body.allowGravity = false;
-    this.physics.add.overlap(mysprite, coin3, collectCoin, null, this);
-
-    function collectCoin(mysprite, coin3) {
-        coin3.disableBody(true, true);
-    }
+    this.physics.add.overlap(mysprite, coin3, points, null, this);
 
     let coin4 = this.physics.add.sprite(450, 493, 'coin');
     coin4.setScale(1.8);
@@ -182,11 +164,7 @@ function create() {
     });
     coin4.play('spin');
     coin4.body.allowGravity = false;
-    this.physics.add.overlap(mysprite, coin4, collectCoin, null, this);
-
-    function collectCoin(mysprite, coin4) {
-        coin4.disableBody(true, true);
-    }
+    this.physics.add.overlap(mysprite, coin4, points, null, this);
 
     let coin5 = this.physics.add.sprite(493, 493, 'coin');
     coin5.setScale(1.8);
@@ -198,12 +176,7 @@ function create() {
     });
     coin5.play('spin');
     coin5.body.allowGravity = false;
-    this.physics.add.overlap(mysprite, coin5, collectCoin, null, this);
-
-    function collectCoin(mysprite, coin5) {
-        coin5.disableBody(true, true);
-    }
-  
+    this.physics.add.overlap(mysprite, coin5, points, null, this);
 
     let coin6 = this.physics.add.sprite(680, 445, 'coin');
     coin6.setScale(1.8);
@@ -215,12 +188,7 @@ function create() {
     });
     coin6.play('spin');
     coin6.body.allowGravity = false;
-    this.physics.add.overlap(mysprite, coin6, collectCoin, null, this);
-
-    function collectCoin(mysprite, coin6) {
-        coin6.disableBody(true, true);
-    }
-
+    this.physics.add.overlap(mysprite, coin6, points, null, this);
 
     let coin7 = this.physics.add.sprite(720, 445, 'coin');
     coin7.setScale(1.8);
@@ -232,7 +200,7 @@ function create() {
     });
     coin7.play('spin');
     coin7.body.allowGravity = false;
-    this.physics.add.overlap(mysprite, coin7, collectCoin, null, this);
+    this.physics.add.overlap(mysprite, coin7, points, null, this);
 
     let coin8 = this.physics.add.sprite(120, 220, 'coin');
     coin8.setScale(1.8);
@@ -244,7 +212,7 @@ function create() {
     });
     coin8.play('spin');
     coin8.body.allowGravity = false;
-    this.physics.add.overlap(mysprite, coin8, collectCoin, null, this);
+    this.physics.add.overlap(mysprite, coin8, points, null, this);
 
     let coin9 = this.physics.add.sprite(120, 280, 'coin');
     coin9.setScale(1.8);
@@ -256,7 +224,7 @@ function create() {
     });
     coin9.play('spin');
     coin9.body.allowGravity = false;
-    this.physics.add.overlap(mysprite, coin9, collectCoin, null, this);
+    this.physics.add.overlap(mysprite, coin9, points, null, this);
 
     let coin10 = this.physics.add.sprite(120, 340, 'coin');
     coin10.setScale(1.8);
@@ -268,11 +236,7 @@ function create() {
     });
     coin10.play('spin');
     coin10.body.allowGravity = false;
-    this.physics.add.overlap(mysprite, coin10, collectCoin, null, this);
-
-    function collectCoin(mysprite, coin7) {
-        coin7.disableBody(true, true);
-    }
+    this.physics.add.overlap(mysprite, coin10, points, null, this);
 
     let coin11 = this.physics.add.sprite(120, 400, 'coin');
     coin11.setScale(1.8);
@@ -284,12 +248,11 @@ function create() {
     });
     coin11.play('spin');
     coin11.body.allowGravity = false;
-    this.physics.add.overlap(mysprite, coin11, collectCoin, null, this);
+    this.physics.add.overlap(mysprite, coin11, points, null, this);
 
-    function collectCoin(mysprite, coin7) {
-        coin7.disableBody(true, true);
-    }
-
+    // let coins = this.add.group();
+    // coins.add(coin1);
+   
     let turnip1 = this.physics.add.sprite(540, 360, 'turnip').setScale(2.3); 
     turnip1.body.allowGravity = false;
     this.anims.create({
@@ -319,9 +282,21 @@ function create() {
         repeat: -1
     });
     turnip3.play('tur');
+
+    turnip1.setImmovable(true);
+    this.physics.add.collider(mysprite, turnip1, bounceTurnip, null, this);
+    turnip2.setImmovable(true);
+    this.physics.add.collider(mysprite, turnip2, bounceTurnip, null, this);
+    turnip3.setImmovable(true);
+    this.physics.add.collider(mysprite, turnip3, bounceTurnip, null, this);
+    
+    function bounceTurnip(sprite, turnip) {
+        sprite.setVelocityY(sprite.body.velocity.y + 5);
+    }
     
     let blue1 = this.physics.add.sprite( 170, 141, 'blue').setScale(2.3);
     blue1.body.allowGravity = false;
+    this.physics.add.overlap(mysprite, blue1, bluepoints, null, this)
 
     let score = 0;
     let scoreText;
@@ -331,11 +306,24 @@ function create() {
         fill: '#000'
     });
 
+    function points(mysprite, object) {
+        object.disableBody(true, true);
+        ++score;
+        scoreText.setText("score: " + score);
+    }
+
+    function bluepoints(mysprite, blueobject){
+        blueobject.disableBody(true, true);
+        score += 5;
+        scoreText.setText("score: " + score);                  
+    }
+            
     
 }
 
 function update() {
     const spaceBar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+   
 
     if (cursors.left.isDown) {
         mysprite.setVelocityX(-160);
@@ -349,8 +337,9 @@ function update() {
     }
 
     if (spaceBar.isDown){
+        jumptimer = 1;
         mysprite.setVelocityY(-200);  
-        }
+        } 
 
 
 };
