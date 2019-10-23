@@ -47,8 +47,12 @@ function preload() {
     this.load.image('redbig', 'assets/red_bigsquare.png');
     this.load.image('redsmall', 'assets/red_smallsquare.png');
     this.load.spritesheet('turnip', 'assets/turnip.png', {
-            frameWidth: 16.4,
+            frameWidth: 16,
             frameHeight: 26,
+    });
+    this.load.spritesheet('blue', 'assets/blue.png', {
+        frameWidth: 16, 
+        frameHeight: 16,
     });
 }
 
@@ -227,18 +231,104 @@ function create() {
     coin7.body.allowGravity = false;
     this.physics.add.overlap(mysprite, coin7, collectCoin, null, this);
 
+    let coin8 = this.physics.add.sprite(120, 220, 'coin');
+    coin8.setScale(1.8);
+    this.anims.create({
+        key: 'spin',
+        repeat: -1,
+        frameRate: 6,
+        frames: this.anims.generateFrameNames('coin', { start: 0, end: 3 })
+    });
+    coin8.play('spin');
+    coin8.body.allowGravity = false;
+    this.physics.add.overlap(mysprite, coin8, collectCoin, null, this);
+
+    let coin9 = this.physics.add.sprite(120, 280, 'coin');
+    coin9.setScale(1.8);
+    this.anims.create({
+        key: 'spin',
+        repeat: -1,
+        frameRate: 6,
+        frames: this.anims.generateFrameNames('coin', { start: 0, end: 3 })
+    });
+    coin9.play('spin');
+    coin9.body.allowGravity = false;
+    this.physics.add.overlap(mysprite, coin9, collectCoin, null, this);
+
+    let coin10 = this.physics.add.sprite(120, 340, 'coin');
+    coin10.setScale(1.8);
+    this.anims.create({
+        key: 'spin',
+        repeat: -1,
+        frameRate: 6,
+        frames: this.anims.generateFrameNames('coin', { start: 0, end: 3 })
+    });
+    coin10.play('spin');
+    coin10.body.allowGravity = false;
+    this.physics.add.overlap(mysprite, coin10, collectCoin, null, this);
+
+    function collectCoin(mysprite, coin7) {
+        coin7.disableBody(true, true);
+    }
+
+    let coin11 = this.physics.add.sprite(120, 400, 'coin');
+    coin11.setScale(1.8);
+    this.anims.create({
+        key: 'spin',
+        repeat: -1,
+        frameRate: 6,
+        frames: this.anims.generateFrameNames('coin', { start: 0, end: 3 })
+    });
+    coin11.play('spin');
+    coin11.body.allowGravity = false;
+    this.physics.add.overlap(mysprite, coin11, collectCoin, null, this);
+
     function collectCoin(mysprite, coin7) {
         coin7.disableBody(true, true);
     }
 
     let turnip1 = this.physics.add.sprite(540, 360, 'turnip').setScale(2.3); 
-    turnip1.body.allowGravity = false;  
+    turnip1.body.allowGravity = false;
+    this.anims.create({
+        key: 'tur',
+        frames: this.anims.generateFrameNumbers('turnip', { start: 0, end: 2 }),
+        frameRate: 20,
+        repeat: -1
+    });
+    turnip1.play('tur');
 
     let turnip2 = this.physics.add.sprite(430, 290, 'turnip').setScale(2.3);
     turnip2.body.allowGravity = false;  
+    this.anims.create({
+        key: 'tur',
+        frames: this.anims.generateFrameNumbers('turnip', { start: 0, end: 2 }),
+        frameRate: 20,
+        repeat: -1
+    });
+    turnip2.play('tur');
     
     let turnip3 = this.physics.add.sprite(320, 220, 'turnip').setScale(2.3);
-    turnip3.body.allowGravity = false;  
+    turnip3.body.allowGravity = false; 
+    this.anims.create({
+        key: 'tur',
+        frames: this.anims.generateFrameNumbers('turnip', { start: 0, end: 2 }),
+        frameRate: 20,
+        repeat: -1
+    });
+    turnip3.play('tur');
+    
+    let blue1 = this.physics.add.sprite( 170, 141, 'blue').setScale(2.3);
+    blue1.body.allowGravity = false;
+
+    let score = 0;
+    let scoreText;
+
+    scoreText = this.add.text(630, 50, 'score: 0', {
+        fontSize: '30px',
+        fill: '#000'
+    });
+
+    
 }
 
 function update() {
