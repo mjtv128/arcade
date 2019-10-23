@@ -1,4 +1,4 @@
-const gameDiv = document.querySelector('#game-side')
+
 
 let config = {
     type: Phaser.AUTO,
@@ -19,7 +19,7 @@ let config = {
 }
 
 
-const game = new Phaser.Game(config)
+new Phaser.Game(config)
 
 let cursors;
 let mysprite;
