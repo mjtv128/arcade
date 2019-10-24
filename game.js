@@ -1,6 +1,6 @@
 
 const gameDiv = document.getElementById('game-div')
-let hidden = document.querySelector(".hidden");
+let submitFormDiv = document.querySelector("#submit-form-div");
 let scoreInput = document.getElementById('score')
 scoreInput.value = 0
 
@@ -23,10 +23,8 @@ let config = {
     }
 }
 
-function initiate(config){
-    new Phaser.Game(config)
-}
-initiate(config)
+new Phaser.Game(config)
+
 
 let cursors;
 let mysprite;
@@ -323,7 +321,6 @@ function create() {
         scoreText.setText("score: " + score);
     }
 
-    
 
     function bluepoints(mysprite, blueobject){
         blueobject.disableBody(true, true);
@@ -333,14 +330,14 @@ function create() {
         this.physics.pause();
         this.gameOver = true;  
         let gameOverText = this.add.text(300, 350, 'GAME OVER', { fontSize: '60px', fill: '#000' }) 
-        hidden.className = "unhidden";
+        submitFormDiv.className = "submit-form-unhidden";
     }
 
 }
 
 function update() {
     const spaceBar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-   
+    let cursors = this.input.keyboard.createCursorKeys();
 
     if (cursors.left.isDown) {
         mysprite.setVelocityX(-300);
@@ -358,4 +355,4 @@ function update() {
         mysprite.setVelocityY(-200);  
         } 
 
-};
+}; 
