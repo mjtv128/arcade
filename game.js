@@ -1,6 +1,6 @@
 
 const gameDiv = document.getElementById('game-div')
-let hidden = document.querySelector(".hidden");
+let submitFormDiv = document.querySelector("#submit-form-div");
 let scoreInput = document.getElementById('score')
 scoreInput.value = 0
 
@@ -23,10 +23,8 @@ let config = {
     }
 }
 
-function initiate(config){
-    new Phaser.Game(config)
-}
-initiate(config)
+new Phaser.Game(config)
+
 
 let cursors;
 let mysprite;
@@ -678,23 +676,24 @@ function create() {
         scoreText.setText("score: " + score);
     }
 
+
     function pointDiamond(mysprite, diamond){
         diamond.disableBody(true, true);
         score += 10;
         scoreText.setText("score: " + score);
     }
 
-//     function bluepoints(mysprite, blueobject){
-//         blueobject.disableBody(true, true);
-//         score += 5;
-//         scoreInput.value += 5;
-//         scoreText.setText("score: " + score);  
-//         this.physics.pause();
-//         this.gameOver = true;  
-//         let gameOverText = this.add.text(300, 350, 'GAME OVER', { fontSize: '60px', fill: '#000' }) 
-//         hidden.className = "unhidden";         
+    function bluepoints(mysprite, blueobject){
+        blueobject.disableBody(true, true);
+        score *= 2;
+        scoreInput.value*=2;
+        scoreText.setText("score: " + score);  
+        this.physics.pause();
+        this.gameOver = true;  
+        let gameOverText = this.add.text(300, 350, 'GAME OVER', { fontSize: '60px', fill: '#000' }) 
+        submitFormDiv.className = "submit-form-unhidden";
+    }
 
-//     }
 
 }
 
@@ -727,4 +726,4 @@ function update() {
         mysprite.setVelocityY(-200);  
         } 
 
-};
+}; 

@@ -1,13 +1,16 @@
 
 window.addEventListener('DOMContentLoaded', () => {
-
-
+    
     // CONSTANTS
 
-        const leaderboardDiv = document.querySelector('#leaderboard-side')
-        const leaderboardUl = document.querySelector('#name-score')
-        const submitForm = document.querySelector('#submit-form')
-        
+        const leaderboardDiv = document.querySelector('#leaderboard-side');
+        const leaderboardUl = document.querySelector('#name-score');
+        const submitForm = document.querySelector('#submit-form');
+        let scoreInput = document.getElementById('score');
+        const usernameInput = document.getElementById('username');
+        let submitFormDiv = document.querySelector("#submit-form-div");
+        const gameDiv = document.getElementById('game-div');
+        const charger = document.getElementById('charger');
 
 
     // API CONSTANTS
@@ -56,16 +59,33 @@ window.addEventListener('DOMContentLoaded', () => {
         }
 
         submitForm.addEventListener('submit', (e) => {
-            e.preventDefault()
-            postNewScore(e),
-            displayNewScore(e)
+            e.preventDefault();
+            postNewScore(e)
+            .then( () => displayNewScore())
             })
 
         function displayNewScore(e){
+            renderLeaderboard()
+            rerenderGame()
+        }
 
-            p = document.createElement('li')
-            p.innerText = `${e.target.elements[0].value} scored ${e.target.elements[1].value}`
-            leaderboardUl.append(p)
+        function rerenderGame(){
+            submitFormDiv.className = 'submit-form'
+            charger.className = 'charger'
+            setTimeout(hideCharger, 2000)
+            gameDiv.innerText = ""
+            cleanUp()
+            new Phaser.Game(config)
+        }   
+
+        function hideCharger(){
+            charger.className = 'charger-hidden'
+        }
+
+        function cleanUp(){
+            score = 0
+            scoreInput.value = ''
+            usernameInput.value = ''
         }
 
         renderLeaderboard()
