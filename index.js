@@ -26,6 +26,7 @@ window.addEventListener('DOMContentLoaded', () => {
         }
 
         function postNewScore(e){
+            debugger;
             return fetch(baseURL, {
                 method: "POST",
                 headers: headers,
