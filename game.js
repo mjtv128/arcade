@@ -71,6 +71,7 @@ function preload() {
     
     this.load.audio('music-background', 'assets/alien-syndrome.mp3');
     this.load.audio('coin_sound', 'assets/coin-sound.mp3');
+    this.load.image('pink_diamond', 'assets/pink_diamond.png')
 }
 
 function create() {
@@ -724,6 +725,37 @@ function create() {
     this.physics.add.collider(mummy4, invinsible4_left);
     this.physics.add.collider(mysprite, mummy4, gameOver, null, this);
 
+    /////////MUMMY///////
+
+    /////RANDOM EVENTS//////
+    this.time.addEvent({delay: Phaser.Math.Between(1000, 5000), callback: randomDiamonds, callbackScope: this, repeat: 1});
+
+    function randomDiamonds(){
+        let pink1 = this.physics.add.image(100, 0, 'pink_diamond').setScale(0.013);
+        // pink1.body.setGravityY(0.3); === check with louis 
+        let pink2 = this.physics.add.image(320, -100, 'pink_diamond').setScale(0.013);
+        let pink3 = this.physics.add.image(890, -350, 'pink_diamond').setScale(0.013);
+        let pink4 = this.physics.add.image(630, -720, 'pink_diamond').setScale(0.013);
+        let pink5 = this.physics.add.image(724, -472, 'pink_diamond').setScale(0.013);
+        let pink6 = this.physics.add.image(138, -163, 'pink_diamond').setScale(0.013);
+        let pink7 = this.physics.add.image(506, -684, 'pink_diamond').setScale(0.013);
+        let pink8 = this.physics.add.image(1030, -584, 'pink_diamond').setScale(0.013);
+        let pink9 = this.physics.add.image(726, -894, 'pink_diamond').setScale(0.013);
+        let pink10 = this.physics.add.image(276, -584, 'pink_diamond').setScale(0.013);
+
+
+        this.physics.add.collider(mysprite, pink1, pinkDiamond, null, this);
+        this.physics.add.collider(mysprite, pink2, pinkDiamond, null, this);
+        this.physics.add.collider(mysprite, pink3, pinkDiamond, null, this);
+        this.physics.add.collider(mysprite, pink4, pinkDiamond, null, this);
+        this.physics.add.collider(mysprite, pink5, pinkDiamond, null, this);
+        this.physics.add.collider(mysprite, pink6, pinkDiamond, null, this);
+        this.physics.add.collider(mysprite, pink7, pinkDiamond, null, this);
+        this.physics.add.collider(mysprite, pink8, pinkDiamond, null, this);
+        this.physics.add.collider(mysprite, pink9, pinkDiamond, null, this);
+        this.physics.add.collider(mysprite, pink10, pinkDiamond, null, this);
+
+    }
 
     //////////SCORE END FUNCTIONS ///////////////
     let scoreText;
@@ -733,6 +765,7 @@ function create() {
         fill: '#fff'
     });
 
+    
     function gameOver(mysprite, danger) {
 
         danger.disableBody(true, true);
@@ -751,6 +784,11 @@ function create() {
         scoreText.setText("score: " + score);
     }
 
+    function pinkDiamond(mysprite, diamond){
+        diamond.disableBody(true, true);
+        score += 20;
+        scoreText.setText("score: " + score);
+    }
 
     function pointDiamond(mysprite, diamond){
         diamond.disableBody(true, true);
