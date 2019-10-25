@@ -686,7 +686,7 @@ function create() {
     mummy1 = this.physics.add.image(870, 200, 'mummy').setScale(2);
     mummy1.body.allowGravity = false;
     mummy1.body.collideWorldBounds = true;
-    mummy1.body.velocity.x = 500;
+    mummy1.body.velocity.x = 150;
 
     let invinsible1_left = this.physics.add.image(650, 200, 'invinsible-wall').setScale(2);
     invinsible1_left.body.allowGravity = false;
@@ -698,13 +698,13 @@ function create() {
     // mummy2 = this.physics.add.image(670, 575, 'mummy').setScale(2);
     // mummy2.body.allowGravity = false;
     // mummy2.body.collideWorldBounds = true;
-    // mummy2.body.velocity.x = -400;
+    // mummy2.body.velocity.x = -150;
     // this.physics.add.collider(mysprite, mummy2, gameOver, null, this);
 
     mummy3 = this.physics.add.image(30, 227, 'mummy').setScale(2);
     mummy3.body.allowGravity = false;
     mummy3.body.collideWorldBounds = true;
-    mummy3.body.velocity.x = 400;
+    mummy3.body.velocity.x = 150;
 
     invinsible3_left = this.physics.add.image(130, 227, 'invinsible-wall').setScale(2);
     invinsible3_left.body.allowGravity = false;
@@ -716,7 +716,7 @@ function create() {
     mummy4 = this.physics.add.image(230, 470, 'mummy').setScale(2);
     mummy4.body.allowGravity = false;
     mummy4.body.collideWorldBounds = true;
-    mummy4.body.velocity.x = 400;
+    mummy4.body.velocity.x = 150;
 
     invinsible4_left = this.physics.add.image(1010, 475, 'invinsible-wall').setScale(2);
     invinsible4_left.body.allowGravity = false;
@@ -728,11 +728,13 @@ function create() {
     /////////MUMMY///////
 
     /////RANDOM EVENTS//////
-    this.time.addEvent({delay: Phaser.Math.Between(1000, 5000), callback: randomDiamonds, callbackScope: this, repeat: 1});
+    this.time.addEvent({delay: Phaser.Math.Between(2000, 7000), callback: randomDiamonds, callbackScope: this, repeat: 0});
 
     function randomDiamonds(){
         let pink1 = this.physics.add.image(100, 0, 'pink_diamond').setScale(0.013);
-        // pink1.body.setGravityY(0.3); === check with louis 
+        pink1.body.setAllowGravity(false);
+        pink1.body.velocity.y = 20
+    
         let pink2 = this.physics.add.image(320, -100, 'pink_diamond').setScale(0.013);
         let pink3 = this.physics.add.image(890, -350, 'pink_diamond').setScale(0.013);
         let pink4 = this.physics.add.image(630, -720, 'pink_diamond').setScale(0.013);
@@ -742,6 +744,25 @@ function create() {
         let pink8 = this.physics.add.image(1030, -584, 'pink_diamond').setScale(0.013);
         let pink9 = this.physics.add.image(726, -894, 'pink_diamond').setScale(0.013);
         let pink10 = this.physics.add.image(276, -584, 'pink_diamond').setScale(0.013);
+
+        pink2.body.setAllowGravity(false);
+        pink2.body.velocity.y = 50;
+        pink3.body.setAllowGravity(false);
+        pink3.body.velocity.y = 10;
+        pink4.body.setAllowGravity(false);
+        pink4.body.velocity.y = 30;
+        pink5.body.setAllowGravity(false);
+        pink5.body.velocity.y = 25;
+        pink6.body.setAllowGravity(false);
+        pink6.body.velocity.y = 22;
+        pink7.body.setAllowGravity(false);
+        pink7.body.velocity.y = 43;
+        pink8.body.setAllowGravity(false);
+        pink8.body.velocity.y = 18;
+        pink9.body.setAllowGravity(false);
+        pink9.body.velocity.y = 63;
+        pink10.body.setAllowGravity(false);
+        pink10.body.velocity.y = 32;
 
 
         this.physics.add.collider(mysprite, pink1, pinkDiamond, null, this);
@@ -754,8 +775,9 @@ function create() {
         this.physics.add.collider(mysprite, pink8, pinkDiamond, null, this);
         this.physics.add.collider(mysprite, pink9, pinkDiamond, null, this);
         this.physics.add.collider(mysprite, pink10, pinkDiamond, null, this);
-
     }
+
+    
 
     //////////SCORE END FUNCTIONS ///////////////
     let scoreText;
@@ -824,10 +846,10 @@ function update() {
     let cursors = this.input.keyboard.createCursorKeys();
 
     if (cursors.left.isDown) {
-        mysprite.setVelocityX(-300);
+        mysprite.setVelocityX(-100);
         mysprite.anims.play('left', true);
     } else if (cursors.right.isDown){
-        mysprite.setVelocityX(300);
+        mysprite.setVelocityX(100);
         mysprite.anims.play('right', true);
     } else {
         mysprite.setVelocityX(0);
@@ -836,31 +858,31 @@ function update() {
 
     if (spaceBar.isDown){
         jumptimer = 1;
-        mysprite.setVelocityY(-200);  
+        mysprite.setVelocityY(-50);  
         } 
 
     if (mummy1.body.touching.right || mummy1.body.blocked.right){
-        mummy1.body.velocity.x = -500;
+        mummy1.body.velocity.x = -150;
     } else if (mummy1.body.touching.left || mummy1.body.blocked.left){
-        mummy1.body.velocity.x = 500;
+        mummy1.body.velocity.x = 150;
     }
 
     //  if (mummy2.body.touching.right || mummy2.body.blocked.right){
-    //     mummy2.body.velocity.x = -500;
+    //     mummy2.body.velocity.x = -150;
     // } else if (mummy2.body.touching.left || mummy2.body.blocked.left){
-    //     mummy2.body.velocity.x = 500;
+    //     mummy2.body.velocity.x = 150;
     // }
 
     if (mummy3.body.touching.right || mummy3.body.blocked.right) {
-        mummy3.body.velocity.x = -500;
+        mummy3.body.velocity.x = -150;
     } else if (mummy3.body.touching.left || mummy3.body.blocked.left) {
-        mummy3.body.velocity.x = 500;
+        mummy3.body.velocity.x = 150;
     }
 
     if (mummy4.body.touching.right || mummy4.body.blocked.right) {
-        mummy4.body.velocity.x = -500;
+        mummy4.body.velocity.x = -150;
     } else if (mummy4.body.touching.left || mummy4.body.blocked.left) {
-        mummy4.body.velocity.x = 500;
+        mummy4.body.velocity.x = 150;
     }
     
 
