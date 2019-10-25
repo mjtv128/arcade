@@ -31,7 +31,12 @@ let mysprite;
 let score = 0;
 let iter = 0;
 let mtnSpeed = 0.01;
-
+let mummy1;
+let mummy2;
+let mummy3;
+let mummy4;
+let music;
+let coineffect;
 
 function preload() {
 
@@ -61,11 +66,17 @@ function preload() {
         frameHeight: 17
     })
     this.load.image('diamond', 'assets/diamond.png');
-
-  
+    this.load.image('mummy', 'assets/mummy.png');
+    this.load.image('invinsible-wall', 'assets/red_smallsquare.png')
+    
+    this.load.audio('music-background', 'assets/alien-syndrome.mp3');
+    this.load.audio('coin_sound', 'assets/coin-sound.mp3');
+    this.load.image('pink_diamond', 'assets/pink_diamond.png')
 }
 
 function create() {
+
+    // this.sound.play('music-background');
 
     let bg = this.add.image(0, 0, 'background');
     bg.setOrigin(0, 0);
@@ -75,6 +86,8 @@ function create() {
     mountain = this.add.tileSprite(160, 544, 620, 275, 'mountains').setScale(4);
     moretrees = this.add.tileSprite(160, 544, 620, 275, 'moretrees').setScale(4);
     trees = this.add.tileSprite(160, 544, 620, 275, 'trees').setScale(4);
+
+   
     
     static = this.physics.add.staticGroup();
 
@@ -152,8 +165,8 @@ function create() {
     static.create(896, 64, 'shortslab').setScale(0.2).refreshBody();
 
     
-    static.create(330, 145, 'shortslab').setScale(0.2).refreshBody();
-    static.create(500, 205, 'shortslab').setScale(0.2).refreshBody();
+    static.create(350, 145, 'shortslab').setScale(0.2).refreshBody();
+    static.create(470, 205, 'shortslab').setScale(0.2).refreshBody();
     static.create(375, 305, 'shortslab').setScale(0.2).refreshBody();
 
 
@@ -470,7 +483,7 @@ function create() {
     coin23.body.allowGravity = false;
     this.physics.add.overlap(mysprite, coin23, points, null, this);
 
-    let coin24 = this.physics.add.sprite(495, 175, 'coin');
+    let coin24 = this.physics.add.sprite(475, 175, 'coin');
     coin24.setScale(1.4);
     this.anims.create({
         key: 'spin',
@@ -626,19 +639,19 @@ function create() {
     flame4.setImmovable(true);
     flame5.setImmovable(true);
     flame6.setImmovable(true);
-    this.physics.add.collider(mysprite, flame1, fireCollide, null, this);
-    this.physics.add.collider(mysprite, flame2, fireCollide, null, this);
-    this.physics.add.collider(mysprite, flame3, fireCollide, null, this);
-    this.physics.add.collider(mysprite, flame4, fireCollide, null, this);
-    this.physics.add.collider(mysprite, flame5, fireCollide, null, this);
-    this.physics.add.collider(mysprite, flame6, fireCollide, null, this);
+    this.physics.add.collider(mysprite, flame1, gameOver, null, this);
+    this.physics.add.collider(mysprite, flame2, gameOver, null, this);
+    this.physics.add.collider(mysprite, flame3, gameOver, null, this);
+    this.physics.add.collider(mysprite, flame4, gameOver, null, this);
+    this.physics.add.collider(mysprite, flame5, gameOver, null, this);
+    this.physics.add.collider(mysprite, flame6, gameOver, null, this);
 
     function fireCollide(mysprite, flame){
         flame.disableBody(true, true);
         this.physics.pause();
         this.gameOver = true;
-        let gameOverText = this.add.text(300, 350, 'GAME OVER', { fontSize: '60px', fill: '#000' })
-        hidden.className = "unhidden";   
+        let gameOverText = this.add.text(300, 350, 'GAME OVER', { fontSize: '60px', fill: '#fff' })
+        submitFormDiv.className = "submit-form-unhidden";  
     }
 
     //////// FLAMES END /////
@@ -648,7 +661,7 @@ function create() {
    
     let diamond1 = this.physics.add.image(1030, 33, 'diamond').setScale(0.015);
     let diamond2 = this.physics.add.image(30, 85, 'diamond').setScale(0.015);
-    let diamond3 = this.physics.add.image(330, 115, 'diamond').setScale(0.015);
+    let diamond3 = this.physics.add.image(340, 115, 'diamond').setScale(0.015);
     let diamond4 = this.physics.add.image(376, 275, 'diamond').setScale(0.015);
     let diamond5 = this.physics.add.image(902, 197, 'diamond').setScale(0.015);
     let diamond6 = this.physics.add.image(1057, 370, 'diamond').setScale(0.015);
@@ -661,7 +674,90 @@ function create() {
     diamond6.body.allowGravity = false;
 
     this.physics.add.overlap(mysprite, diamond1, pointDiamond, null, this);
+    this.physics.add.overlap(mysprite, diamond2, pointDiamond, null, this);
+    this.physics.add.overlap(mysprite, diamond3, pointDiamond, null, this);
+    this.physics.add.overlap(mysprite, diamond4, pointDiamond, null, this);
+    this.physics.add.overlap(mysprite, diamond5, pointDiamond, null, this);
+    this.physics.add.overlap(mysprite, diamond6, pointDiamond, null, this);
 
+    ///////// DIAMOND/////
+
+    /////// MOMMY///////
+    mummy1 = this.physics.add.image(870, 200, 'mummy').setScale(2);
+    mummy1.body.allowGravity = false;
+    mummy1.body.collideWorldBounds = true;
+    mummy1.body.velocity.x = 500;
+
+    let invinsible1_left = this.physics.add.image(650, 200, 'invinsible-wall').setScale(2);
+    invinsible1_left.body.allowGravity = false;
+    invinsible1_left.visible = false;
+    invinsible1_left.setImmovable(true);
+    this.physics.add.collider(mummy1, invinsible1_left);
+    this.physics.add.collider(mysprite, mummy1, gameOver, null, this);
+
+    // mummy2 = this.physics.add.image(670, 575, 'mummy').setScale(2);
+    // mummy2.body.allowGravity = false;
+    // mummy2.body.collideWorldBounds = true;
+    // mummy2.body.velocity.x = -400;
+    // this.physics.add.collider(mysprite, mummy2, gameOver, null, this);
+
+    mummy3 = this.physics.add.image(30, 227, 'mummy').setScale(2);
+    mummy3.body.allowGravity = false;
+    mummy3.body.collideWorldBounds = true;
+    mummy3.body.velocity.x = 400;
+
+    invinsible3_left = this.physics.add.image(130, 227, 'invinsible-wall').setScale(2);
+    invinsible3_left.body.allowGravity = false;
+    invinsible3_left.visible = false;
+    invinsible3_left.setImmovable(true);
+    this.physics.add.collider(mummy3, invinsible3_left);
+    this.physics.add.collider(mysprite, mummy3, gameOver, null, this);
+
+    mummy4 = this.physics.add.image(230, 470, 'mummy').setScale(2);
+    mummy4.body.allowGravity = false;
+    mummy4.body.collideWorldBounds = true;
+    mummy4.body.velocity.x = 400;
+
+    invinsible4_left = this.physics.add.image(1010, 475, 'invinsible-wall').setScale(2);
+    invinsible4_left.body.allowGravity = false;
+    invinsible4_left.visible = false;
+    invinsible4_left.setImmovable(true);
+    this.physics.add.collider(mummy4, invinsible4_left);
+    this.physics.add.collider(mysprite, mummy4, gameOver, null, this);
+
+    /////////MUMMY///////
+
+    /////RANDOM EVENTS//////
+    this.time.addEvent({delay: Phaser.Math.Between(1000, 5000), callback: randomDiamonds, callbackScope: this, repeat: 1});
+
+    function randomDiamonds(){
+        let pink1 = this.physics.add.image(100, 0, 'pink_diamond').setScale(0.013);
+        // pink1.body.setGravityY(0.3); === check with louis 
+        let pink2 = this.physics.add.image(320, -100, 'pink_diamond').setScale(0.013);
+        let pink3 = this.physics.add.image(890, -350, 'pink_diamond').setScale(0.013);
+        let pink4 = this.physics.add.image(630, -720, 'pink_diamond').setScale(0.013);
+        let pink5 = this.physics.add.image(724, -472, 'pink_diamond').setScale(0.013);
+        let pink6 = this.physics.add.image(138, -163, 'pink_diamond').setScale(0.013);
+        let pink7 = this.physics.add.image(506, -684, 'pink_diamond').setScale(0.013);
+        let pink8 = this.physics.add.image(1030, -584, 'pink_diamond').setScale(0.013);
+        let pink9 = this.physics.add.image(726, -894, 'pink_diamond').setScale(0.013);
+        let pink10 = this.physics.add.image(276, -584, 'pink_diamond').setScale(0.013);
+
+
+        this.physics.add.collider(mysprite, pink1, pinkDiamond, null, this);
+        this.physics.add.collider(mysprite, pink2, pinkDiamond, null, this);
+        this.physics.add.collider(mysprite, pink3, pinkDiamond, null, this);
+        this.physics.add.collider(mysprite, pink4, pinkDiamond, null, this);
+        this.physics.add.collider(mysprite, pink5, pinkDiamond, null, this);
+        this.physics.add.collider(mysprite, pink6, pinkDiamond, null, this);
+        this.physics.add.collider(mysprite, pink7, pinkDiamond, null, this);
+        this.physics.add.collider(mysprite, pink8, pinkDiamond, null, this);
+        this.physics.add.collider(mysprite, pink9, pinkDiamond, null, this);
+        this.physics.add.collider(mysprite, pink10, pinkDiamond, null, this);
+
+    }
+
+    //////////SCORE END FUNCTIONS ///////////////
     let scoreText;
 
     scoreText = this.add.text(630, 50, 'score: 0', {
@@ -669,13 +765,30 @@ function create() {
         fill: '#fff'
     });
 
+    
+    function gameOver(mysprite, danger) {
+
+        danger.disableBody(true, true);
+        this.physics.pause();
+        this.gameOver = true;
+        let gameOverText = this.add.text(300, 350, 'GAME OVER', { fontSize: '60px', fill: '#fff' })
+        submitFormDiv.className = "submit-form-unhidden";
+    }
+
+
     function points(mysprite, object) {
+        // game.sound.play('coin_effect'); ==== check on function. this?
         object.disableBody(true, true);
         ++score;
         ++scoreInput.value;
         scoreText.setText("score: " + score);
     }
 
+    function pinkDiamond(mysprite, diamond){
+        diamond.disableBody(true, true);
+        score += 20;
+        scoreText.setText("score: " + score);
+    }
 
     function pointDiamond(mysprite, diamond){
         diamond.disableBody(true, true);
@@ -683,8 +796,8 @@ function create() {
         scoreText.setText("score: " + score);
     }
 
-    function bluepoints(mysprite, blueobject){
-        blueobject.disableBody(true, true);
+    function endgame(mysprite, diamondobject){
+        diamondobject.disableBody(true, true);
         score *= 2;
         scoreInput.value*=2;
         scoreText.setText("score: " + score);  
@@ -725,5 +838,30 @@ function update() {
         jumptimer = 1;
         mysprite.setVelocityY(-200);  
         } 
+
+    if (mummy1.body.touching.right || mummy1.body.blocked.right){
+        mummy1.body.velocity.x = -500;
+    } else if (mummy1.body.touching.left || mummy1.body.blocked.left){
+        mummy1.body.velocity.x = 500;
+    }
+
+    //  if (mummy2.body.touching.right || mummy2.body.blocked.right){
+    //     mummy2.body.velocity.x = -500;
+    // } else if (mummy2.body.touching.left || mummy2.body.blocked.left){
+    //     mummy2.body.velocity.x = 500;
+    // }
+
+    if (mummy3.body.touching.right || mummy3.body.blocked.right) {
+        mummy3.body.velocity.x = -500;
+    } else if (mummy3.body.touching.left || mummy3.body.blocked.left) {
+        mummy3.body.velocity.x = 500;
+    }
+
+    if (mummy4.body.touching.right || mummy4.body.blocked.right) {
+        mummy4.body.velocity.x = -500;
+    } else if (mummy4.body.touching.left || mummy4.body.blocked.left) {
+        mummy4.body.velocity.x = 500;
+    }
+    
 
 }; 
